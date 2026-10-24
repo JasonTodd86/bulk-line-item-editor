@@ -1,0 +1,14 @@
+{
+  "name": "bulk-line-item-editor",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Inline-editable Opportunity Products table for Lightning Experience",
+  "scripts": {
+    "test": "sfdx-lwc-jest",
+    "test:watch": "sfdx-lwc-jest --watch",
+    "test:coverage": "sfdx-lwc-jest --coverage"
+  },
+  "devDependencies": {
+    "@salesforce/sfdx-lwc-jest": "^7.0.1"
+  }
+}

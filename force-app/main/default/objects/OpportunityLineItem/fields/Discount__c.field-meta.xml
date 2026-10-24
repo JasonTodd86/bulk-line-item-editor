@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Discount__c</fullName>
+    <label>Discount</label>
+    <description>Percent discount for the line item, edited in the Bulk Line Item Editor.</description>
+    <precision>5</precision>
+    <scale>2</scale>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

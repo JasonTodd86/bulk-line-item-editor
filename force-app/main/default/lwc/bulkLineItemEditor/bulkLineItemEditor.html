@@ -1,0 +1,49 @@
+<template>
+    <lightning-card title="Opportunity Products" icon-name="standard:opportunity_line_item">
+        <div class="container slds-is-relative">
+            <template lwc:if={showSpinner}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+
+            <template lwc:if={loadError}>
+                <p class="slds-p-horizontal_medium slds-text-color_error" role="alert">{loadError}</p>
+            </template>
+            <template lwc:elseif={hasNoRows}>
+                <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                    <p>No products have been added to this opportunity yet.</p>
+                </div>
+            </template>
+            <template lwc:elseif={hasRows}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={rows}
+                    columns={columns}
+                    draft-values={draftValues}
+                    errors={errors}
+                    hide-checkbox-column
+                    suppress-bottom-bar
+                    oncellchange={handleCellChange}
+                ></lightning-datatable>
+            </template>
+        </div>
+
+        <template lwc:if={hasRows}>
+            <div slot="footer" class="slds-grid slds-grid_align-end">
+                <lightning-button
+                    class="slds-m-right_x-small"
+                    label="Cancel"
+                    data-id="cancel"
+                    disabled={disableActions}
+                    onclick={handleCancel}
+                ></lightning-button>
+                <lightning-button
+                    variant="brand"
+                    label="Save"
+                    data-id="save"
+                    disabled={disableActions}
+                    onclick={handleSave}
+                ></lightning-button>
+            </div>
+        </template>
+    </lightning-card>
+</template>

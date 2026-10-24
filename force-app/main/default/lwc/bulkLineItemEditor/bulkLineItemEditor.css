@@ -1,0 +1,4 @@
+/* Keeps the spinner visible even when there is little content to cover. */
+.container {
+    min-height: 6rem;
+}
