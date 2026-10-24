@@ -2,15 +2,6 @@
 
 A Lightning Web Component for Opportunity record pages. It lists every Opportunity Product (`OpportunityLineItem`) in an inline-editable table, so a user can change several lines and save them all with one click.
 
-![Table view](docs/screenshots/table.png)
-<!-- Placeholder: add a screenshot of the editable table -->
-
-![Row-level errors](docs/screenshots/row-errors.png)
-<!-- Placeholder: add a screenshot showing a failed row after a partial save -->
-
-![Empty state](docs/screenshots/empty-state.png)
-<!-- Placeholder: add a screenshot of an Opportunity with no products -->
-
 ## Features
 
 - `lightning-datatable` with Product Name (read-only), Quantity, Sales Price, Discount, Service Date and Line Description (all editable)
@@ -28,9 +19,11 @@ force-app/main/default/
 ├── classes/
 │   ├── BulkLineItemEditorController.cls
 │   └── BulkLineItemEditorControllerTest.cls
-└── lwc/bulkLineItemEditor/
-    ├── bulkLineItemEditor.html / .js / .css / .js-meta.xml
-    └── __tests__/bulkLineItemEditor.test.js
+├── lwc/bulkLineItemEditor/
+│   ├── bulkLineItemEditor.html / .js / .css / .js-meta.xml
+│   └── __tests__/bulkLineItemEditor.test.js
+├── objects/OpportunityLineItem/fields/Discount__c.field-meta.xml
+└── permissionsets/Bulk_Line_Item_Editor_Access.permissionset-meta.xml
 ```
 
 ## Deployment (sf CLI)
@@ -44,11 +37,14 @@ sf org login web --alias my-dev-org --set-default
 # 2. Deploy
 sf project deploy start --source-dir force-app
 
-# 3. Run the Apex tests with coverage
+# 3. Give yourself access to the Discount__c field and the Apex controller
+sf org assign permset --name Bulk_Line_Item_Editor_Access
+
+# 4. Run the Apex tests with coverage (they fail until step 3 is done)
 sf apex run test --class-names BulkLineItemEditorControllerTest \
   --code-coverage --result-format human --wait 10
 
-# 4. (Optional) Run the Jest tests locally
+# 5. (Optional) Run the Jest tests locally
 npm install
 npm test
 ```
@@ -61,9 +57,9 @@ npm test
 4. Drag it onto the page, for example into the main column below the Details tab.
 5. Click **Save**, then **Activate** (choose *Assign as Org Default* or an App/Profile assignment), then go back to the record.
 
-Users need Read and Edit access to Opportunity Products and to the edited fields. No extra permission set is required.
+Users need Read and Edit access to Opportunity Products and to the edited fields. Assign them the `Bulk Line Item Editor Access` permission set, which grants the `Discount__c` field and the Apex controller.
 
 ## Notes
 
 - Discount is shown as a percentage number (10 means 10%).
-- Sales Price is a standard Opportunity Product field. Discount is the custom `Discount__c` percent field, because the standard Discount field is not enabled in every org. Assign the `Bulk Line Item Editor Access` permission set to users; if field-level security hides either field from a profile via field-level security, the save for that user returns a row error instead of writing.
+- Sales Price is a standard Opportunity Product field. Discount is the custom `Discount__c` percent field, because the standard Discount field is not enabled in every org. Assign the `Bulk Line Item Editor Access` permission set to users; if field-level security hides either field from a user, the save for that user returns a row error instead of writing.
