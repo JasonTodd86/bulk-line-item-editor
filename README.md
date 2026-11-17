@@ -2,6 +2,17 @@
 
 A Lightning Web Component for Opportunity record pages. It lists every Opportunity Product (`OpportunityLineItem`) in an inline-editable table, so a user can change several lines and save them all with one click.
 
+![Screenshot: Bulk Line Item Editor on an Opportunity record page](docs/screenshot.png)
+*(Screenshot placeholder: add `docs/screenshot.png`.)*
+
+## Why I built it
+
+Standard Opportunity Product editing is one line at a time. This component lets a user edit every line on an Opportunity in one grid, save once, and see which rows failed without losing the valid ones. `docs/WALKTHROUGH.md` explains the design decisions.
+
+## Stack
+
+Salesforce Lightning Web Components, Apex, SOQL, `lightning-datatable`, Jest (`sfdx-lwc-jest`), Apex tests, Salesforce CLI
+
 ## Features
 
 - `lightning-datatable` with Product Name (read-only), Quantity, Sales Price, Discount, Service Date and Line Description (all editable)
